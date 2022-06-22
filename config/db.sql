@@ -2,7 +2,7 @@ CREATE TABLE cakes (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(100) UNIQUE NOT NULL,
     "price" NUMERIC NOT NULL,
-    "image" VARCHAR(100) UNIQUE NOT NULL, 
+    "image" VARCHAR(255) UNIQUE NOT NULL, 
     "description" TEXT 
 );
 
@@ -18,6 +18,6 @@ CREATE TABLE orders (
     "clientId" INTEGER NOT NULL REFERENCES "clients"("id"),
     "cakeId" INTEGER NOT NULL REFERENCES "cakes"("id"),
     "quantity" INTEGER NOT NULL,
-    "createAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    "createAt" TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW(),
     "totalPrice" NUMERIC NOT NULL 
 );

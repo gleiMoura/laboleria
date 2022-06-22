@@ -6,8 +6,6 @@ export default function cakeValidator(schema) {
         if(error) {
             return res.status(410).send(error.details.map((e) => e.message));
         }
-
-        console.log("passei por aqui")
         next();
     }
     
