@@ -1,14 +1,10 @@
-import express, {json} from "express";
-import cors from "cors";
 import chalk from "chalk";
+import app from "./src/app/index.js"
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config;
 
-const app = express();
+const port = process.env.PORT
 
-app.use(cors());
-app.use(json());
-
-app.listen(PORT, () => {
-    console.log(chalk.green("API is working in port: " + process.env.PORT))
+app.listen(port, () => {
+    console.log(chalk.green("Server is running on port: " + process.env.PORT))
 });
