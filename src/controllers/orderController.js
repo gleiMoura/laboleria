@@ -18,7 +18,7 @@ export async function registerOrder(req, res) {
 }
 
 export async function sendAllOrders(req, res) {
-    let logicDate="";
+    let logicDate = "";
     const { date } = req.query
     if (date) {
         logicDate = `WHERE "createAt"='${date}'`;
@@ -30,7 +30,7 @@ export async function sendAllOrders(req, res) {
         if (orders.rowCount === 0) return res.status(404).send([]);
 
         const allOrders = orders.rows.map(element => {
-            return(
+            return (
                 {
                     "client": {
                         id: element.clientId,
@@ -62,19 +62,19 @@ export async function sendAllOrders(req, res) {
 export async function sendOrdersById(req, res) {
     const { id } = req.params;
     const logicDate = `WHERE o.id='${id}'`;
-    
+
     const regex = /[0-9]/;
-    if(regex.test(id) === false) {
+    if (regex.test(id) === false) {
         return res.status(400).send("Parâmetro inválido!!!")
     };
 
-    try{
+    try {
         const orders = await orderRepository.getAllOrders(logicDate);
 
         if (orders.rowCount === 0) return res.status(404).send([]);
 
         const allOrders = orders.rows.map(element => {
-            return(
+            return (
                 {
                     "client": {
                         id: element.clientId,
@@ -91,14 +91,47 @@ export async function sendOrdersById(req, res) {
                     },
                     "createAt": element.createAt,
                     "quantity": element.quantity,
-                    "totalPrice": element.totalPrice
+                    "totalPrice": element.totalPrice,
                 }
             )
         });
 
         res.status(200).send(allOrders)
-    }catch (error) {
+    } catch (error) {
         res.sendStatus(500);
         console.log(chalk.red("theres is something wrong in orderControler, function sendOrderById ----> " + error));
+    }
+};
+
+export async function sendAllClientOrders(req, res) {
+    const { id } = req.params;
+    const logicDate = `WHERE cl.id='${id}'`;
+
+    const regex = /[0-9]/;
+    if (regex.test(id) === false) {
+        return res.status(400).send("Parâmetro inválido!!!")
+    };
+
+    try {
+        const orders = await orderRepository.getAllOrders(logicDate);
+
+        if (orders.rowCount === 0) return res.status(404).send([]);
+
+        const allOrders = orders.rows.map(element => {
+            return (
+                {
+                    "orderId": element.orderId,
+                    "quantity": element.quantity,
+                    "createAt": element.createAt,
+                    "totalPrice": element.totalPrice,
+                    "cakeName": element.cakeName,
+                }
+            )
+        });
+
+        res.status(200).send(allOrders)
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(chalk.red("theres is something wrong in orderControler, function sendClientOrders ----> " + error));
     }
 }

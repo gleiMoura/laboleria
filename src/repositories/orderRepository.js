@@ -14,7 +14,7 @@ async function putOrderInDB (clientId, cakeId, quantity, totalPrice) {
 };
 
 async function getAllOrders(queryStringText) {
-    return db.query(`SELECT cl.id AS "clientId", cl.name AS "clientName", cl.address AS address, cl.phone AS phone, ca.id as "cakeId", ca.name AS "cakeName", ca.price AS price, ca.description AS description, ca.image AS image, o."createAt" AS "createAt", o.quantity AS quantity, o."totalPrice" AS totalPrice
+    return db.query(`SELECT cl.id AS "clientId", cl.name AS "clientName", cl.address AS address, cl.phone AS phone, ca.id as "cakeId", ca.name AS "cakeName", ca.price AS price, ca.description AS description, ca.image AS image, o."createAt" AS "createAt", o.quantity AS quantity, o."totalPrice" AS totalPrice, o.id AS "orderId"
     FROM orders o
     JOIN clients cl ON o."clientId" = cl.id
     JOIN cakes ca ON o."cakeId" = ca.id 
