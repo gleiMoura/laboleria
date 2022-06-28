@@ -14,6 +14,9 @@ const cakeSchema = joi.object({
     "image": joi.string()
         .uri()
         .required(),
+    
+    "flavourId": joi.number()
+        .required(),
 });
 
 export default cakeSchema;
