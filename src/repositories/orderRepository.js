@@ -18,7 +18,7 @@ async function getAllOrders(queryStringText) {
     FROM orders o
     JOIN clients cl ON o."clientId" = cl.id
     JOIN cakes ca ON o."cakeId" = ca.id 
-    JOIN flavours f ON ca.flavourId = f.id
+    JOIN flavours f ON ca."flavourId" = f.id
     ${queryStringText}`)
 };
 

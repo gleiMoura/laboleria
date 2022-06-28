@@ -6,17 +6,18 @@ async function putCakeInDB(cake) {
 };
 
 async function getCakeByName(name) {
-    const data = db.query(`SELECT c.name, c.price, c.description, c.image, f.name AS flavour 
-    FROM cakes c
-    JOIN flavours f
-    ON f.id = c."flavourId"
-    WHERE c.name=$1`,[name]);
+    const data = db.query(`SELECT * FROM cakes WHERE name=$1`,[name]);
     return data;
 };
+
+async function getCakeByImage(image) {
+    return db.query(`SELECT * FROM cakes WHERE image=$1`, [image]);
+}
 
 const cakeRepository = {
     putCakeInDB,
     getCakeByName,
+    getCakeByImage
 }
 
 export default cakeRepository;

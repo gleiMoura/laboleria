@@ -10,7 +10,7 @@ import { sendAllClientOrders } from "../controllers/orderController.js";
 
 const orderRouter = Router();
 
-orderRouter.post("/order",schemaValidator(orderSchema), registerOrder);
+orderRouter.post("/orders",schemaValidator(orderSchema), registerOrder);
 orderRouter.get("/orders", sendAllOrders);
 orderRouter.get("/orders/:id", sendOrdersById);
 orderRouter.get("/clients/:id/orders", sendAllClientOrders)

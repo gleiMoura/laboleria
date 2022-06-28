@@ -7,7 +7,7 @@ export async function registerOrder(req, res) {
     try {
         const name = await orderRepository.getClientById(clientId);
         const cake = await orderRepository.getCakeById(cakeId);
-        if (name.rowCount === 0 || cake.rowCount === 0) return res.sendStatus(404);
+        if (name.rowCount === 0 || cake.rowCount === 0) return res.status(404).send("Don't find client name or cake");
 
         await orderRepository.putOrderInDB(clientId, cakeId, quantity, totalPrice);
         res.status(201).send({ clientId, cakeId, quantity, totalPrice });
@@ -43,7 +43,8 @@ export async function sendAllOrders(req, res) {
                         name: element.cakeName,
                         price: element.price,
                         description: element.description,
-                        image: element.image
+                        image: element.image,
+                        flavour: element.flavourg
                     },
                     "createAt": element.createAt,
                     "quantity": element.quantity,
