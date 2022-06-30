@@ -1,5 +1,6 @@
 import orderRepository from "../repositories/orderRepository.js";
 import chalk from "chalk";
+import clientRepository from "../repositories/orderRepository.js";
 
 export async function registerOrder(req, res) {
     const { clientId, cakeId, quantity, totalPrice } = req.body;
@@ -135,4 +136,19 @@ export async function sendAllClientOrders(req, res) {
         res.sendStatus(500);
         console.log(chalk.red("theres is something wrong in orderControler, function sendClientOrders ----> " + error));
     }
+};
+
+export async function changeDelivery(req, res) {
+    const { id } = req.params;
+    
+    const regex = /[0-9]/;
+    if (regex.test(id) === false) {
+        return res.status(400).send("Parâmetro inválido!!!")
+    };
+
+    const idFromDB = await clientRepository.lookForOrder(id);
+    if(idFromDB.rowCount === 0) return res.sendStatus(404);
+
+    clientRepository.updateDelivery(id);
+    res.sendStatus(204);
 }

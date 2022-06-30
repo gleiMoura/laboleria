@@ -13,6 +13,7 @@ const orderRouter = Router();
 orderRouter.post("/orders",schemaValidator(orderSchema), registerOrder);
 orderRouter.get("/orders", sendAllOrders);
 orderRouter.get("/orders/:id", sendOrdersById);
+orderRouter.patch("/order/:id", changeDelivery);
 orderRouter.get("/clients/:id/orders", sendAllClientOrders)
 
 export default orderRouter;
